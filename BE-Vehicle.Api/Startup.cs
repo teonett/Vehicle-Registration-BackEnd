@@ -26,7 +26,8 @@ namespace BE_Vehicle.Api
             services.AddControllers();
 
             services.AddDbContext<ApplicationContext>(opt => opt.UseInMemoryDatabase("Database"));
-            // services.AddDbContext<ApplicationContext>(opt => opt.UseSqlServer(Configuration.GetConnectionString("SqliteConnectionString")));
+            // string connectionString = "Data Source=vehiclecontrol.db";
+            // services.AddDbContext<ApplicationContext>(options => { options.UseSqlite(connectionString); } );
 
             services.AddTransient<ICategoryRepository, CategoryRepository>();
             services.AddTransient<CategoryHandler, CategoryHandler>();

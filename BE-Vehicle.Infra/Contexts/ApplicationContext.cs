@@ -16,11 +16,7 @@ namespace BE_Vehicle.Infra.Contexts
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-
-            modelBuilder.Entity<Category>().ToTable("Category");
             modelBuilder.Entity<Category>().HasKey(x => x.Id);
-            
-            modelBuilder.Entity<Vehicle>().ToTable("Vehicle");
             modelBuilder.Entity<Vehicle>().HasKey(x => x.Id);
 
             base.OnModelCreating(modelBuilder);

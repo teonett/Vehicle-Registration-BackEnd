@@ -1,8 +1,10 @@
 using System;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace BE_Vehicle.Domain.Entities
 {
+    [Table("Vehicle")]
     public class Vehicle
     {
         public Vehicle()
@@ -22,6 +24,8 @@ namespace BE_Vehicle.Domain.Entities
         public int Id { get; private set; }
 
         [StringLength(20)]
+        [MaxLength(20, ErrorMessage = "The Category field must contain between 2 and 20 characters.")]
+        [MinLength(2, ErrorMessage = "The Category field must contain between 2 and 20 characters.")]
         public string Description { get; private set; }
 
         [Required(ErrorMessage = "Year Build is required!")]        
@@ -34,12 +38,6 @@ namespace BE_Vehicle.Domain.Entities
         [Required(ErrorMessage = "Category is required!")]
         public int CategoryId { get; private set; }
         public Category Category { get; private set; }
-        
-        public void UpdateDescription(string description)
-        {
-            Description = description.ToUpper().Trim();
-            LastUpdateDate = DateTime.Now;
-        }
 
         private int ValidCurrentYearBuild(int yearBuild)
         {
