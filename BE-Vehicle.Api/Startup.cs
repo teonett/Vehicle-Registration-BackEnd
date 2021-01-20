@@ -1,3 +1,4 @@
+using BE_Vehicle.Domain.Handlers;
 using BE_Vehicle.Domain.Repositories;
 using BE_Vehicle.Infra.Contexts;
 using BE_Vehicle.Infra.Repositories;
@@ -28,7 +29,10 @@ namespace BE_Vehicle.Api
             // services.AddDbContext<ApplicationContext>(opt => opt.UseSqlServer(Configuration.GetConnectionString("SqliteConnectionString")));
 
             services.AddTransient<ICategoryRepository, CategoryRepository>();
+            services.AddTransient<CategoryHandler, CategoryHandler>();
+
             services.AddTransient<IVehicleRepository, VehicleRepository>();
+            services.AddTransient<VehicleHandler, VehicleHandler>();
 
             services.AddSwaggerGen(c =>
             {

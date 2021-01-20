@@ -17,35 +17,33 @@ namespace BE_Vehicle.Infra.Repositories
             _context = context;
         }
 
-        public List<Vehicle> GetAll()
-        {
-            return _context.Vehicles
-                    .AsNoTracking()
-                    .ToList();
-        }
-
-        public Vehicle GetById(Guid id)
-        {
-            return _context.Vehicles
-                    .AsNoTracking()
-                    .FirstOrDefault(x => x.Id == id);
-        }
-
         public void Add(Vehicle entity)
         {
-           _context.Vehicles.Add(entity);
-           _context.SaveChanges();
+            _context.Vehicles.Add(entity);
+            _context.SaveChanges();
+        }
+
+        public IEnumerable<Vehicle> GetAll()
+        {
+            return _context.Vehicles
+               .AsNoTracking();
+        }
+
+        public Vehicle GetById(int id)
+        {
+            return _context.Vehicles
+                .FirstOrDefault(x => x.Id == id);
+        }
+
+        public void Remove(Vehicle entity)
+        {
+             _context.Vehicles.Remove(entity);
+            _context.SaveChanges();
         }
 
         public void Update(Vehicle entity)
         {
             _context.Entry(entity).State = EntityState.Modified;
-            _context.SaveChanges();
-        }
-
-        public void Remove(Vehicle entity)
-        {
-            _context.Vehicles.Remove(entity);
             _context.SaveChanges();
         }
 

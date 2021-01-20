@@ -7,18 +7,18 @@ namespace BE_Vehicle.Test.Repositories
 {
     public class FakeVehicleRepository : IVehicleRepository
     {
-        public List<Vehicle> GetAll()
+        public IEnumerable<Vehicle> GetAll()
         {
             throw new NotImplementedException();
         }
 
-        public Vehicle GetById(Guid id)
+        public Vehicle GetById(int id)
         {
             return new Vehicle(
                 "ZZZ",
                 DateTime.Now.Year,
                 DateTime.Now.Year,
-                Guid.NewGuid());
+                1);
         }
 
         public void Add(Vehicle entity)

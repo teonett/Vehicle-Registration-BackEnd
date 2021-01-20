@@ -12,47 +12,49 @@ namespace BE_Vehicle.Api.Controllers
     [Route("v1/categoty")]
     public class CategoryController : ControllerBase
     {
-        private readonly ICategoryRepository repository;
-
-        public CategoryController(CategoryRepository _repository)
+        [HttpGet]
+        [Route("")]
+        public IEnumerable<Category> GetAll([FromServices] ICategoryRepository repository)
         {
-            repository = _repository;
+            return repository.GetAll();
         }
 
         [HttpGet]
-        public ActionResult<List<Category>> Get()
+        [Route("{Id:int}")]
+        public Category GetById(int Id, [FromServices] ICategoryRepository repository)
         {
-            return repository.GetAll();
+            return repository.GetById(Id);
         }
 
-         [HttpGet]
-         [Route("{Id:int}")]
-        public ActionResult<List<Category>> Get(int Id)
-        {
-            return repository.GetAll();
-        }
-
+        [Route("")]
         [HttpPost]
         public GenericCommandResult Create(
-            [FromBody] CreateCategoryCommand command,
-            [FromServices] CategoryHandler handler
+            [FromBody]CreateCategoryCommand command,
+            [FromServices]CategoryHandler handler
         )
         {
             return (GenericCommandResult)handler.Handle(command);
         }
 
+        [Route("")]
         [HttpPut]
-        public ActionResult Update([FromBody] Category category)
+        public GenericCommandResult Update(
+           [FromBody]UpdateCategoryCommand command,
+           [FromServices]CategoryHandler handler
+       )
         {
-            repository.Update(category);
-            return Ok("Updated");
+            return (GenericCommandResult)handler.Handle(command);
         }
 
+        [Route("")]
         [HttpDelete]
-        public ActionResult Remove(Category category)
+        public GenericCommandResult Remove(
+           [FromBody]UpdateCategoryCommand command,
+           [FromServices]CategoryHandler handler
+       )
         {
-            repository.Remove(category);
-            return Ok("Deleted");
+            return (GenericCommandResult)handler.Handle(command);
         }
+        
     }
 }

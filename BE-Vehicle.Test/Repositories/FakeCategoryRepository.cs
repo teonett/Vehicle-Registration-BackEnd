@@ -7,17 +7,15 @@ namespace BE_Vehicle.Test.Repositories
 {
     public class FakeCategoryRepository : ICategoryRepository
     {
-        public List<Category> GetAll()
+        public IEnumerable<Category> GetAll()
         {
             throw new NotImplementedException();
         }
 
-        public Category GetById(Guid id)
+        public Category GetById(int id)
         {
             return new Category("ZZZ");
         }
-
-       
 
         public void Add(Category entity)
         {

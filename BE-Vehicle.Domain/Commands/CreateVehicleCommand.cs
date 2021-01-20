@@ -13,7 +13,7 @@ namespace BE_Vehicle.Domain.Commands
             
         }
 
-        public CreateVehicleCommand(string description, int yearBuild, int yearCategory, Guid categoryId)
+        public CreateVehicleCommand(string description, int yearBuild, int yearCategory, int categoryId)
         {
             Description = description;
             YearBuild = yearBuild;
@@ -24,7 +24,7 @@ namespace BE_Vehicle.Domain.Commands
         public string Description { get; set; }
         public int YearBuild { get; set; }
         public int YearCategory { get; set; }
-        public Guid CategoryId { get; set; }
+        public int CategoryId { get; set; }
         
         public void Validate()
         {

@@ -37,7 +37,7 @@ namespace BE_Vehicle.Domain.Handlers
             }
 
             var vehicle = new Vehicle(command.Description, command.YearBuild, command.YearCategory, command.CategoryId);
-            _repository.Update(vehicle);
+            _repository.Add(vehicle);
 
             return new GenericCommandResult(true, "Saved successfully.", vehicle);
         }

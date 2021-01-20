@@ -12,47 +12,48 @@ namespace BE_Vehicle.Api.Controllers
     [Route("v1/vehicle")]
     public class VehicleController : ControllerBase
     {
-        private readonly IVehicleRepository repository;
-
-        public VehicleController(VehicleRepository _repository)
+        [HttpGet]
+        [Route("")]
+        public IEnumerable<Vehicle> GetAll([FromServices] IVehicleRepository repository)
         {
-            repository = _repository;
+            return repository.GetAll();
         }
 
         [HttpGet]
-        public ActionResult<List<Vehicle>> Get()
+        [Route("{Id:int}")]
+        public Vehicle GetById(int Id, [FromServices] IVehicleRepository repository)
         {
-            return repository.GetAll();
+            return repository.GetById(Id);
         }
 
-         [HttpGet]
-         [Route("{Id:int}")]
-        public ActionResult<List<Vehicle>> Get(int Id)
-        {
-            return repository.GetAll();
-        }
-
+        [Route("")]
         [HttpPost]
         public GenericCommandResult Create(
-            [FromBody] CreateVehicleCommand command,
-            [FromServices] VehicleHandler handler
+            [FromBody]CreateVehicleCommand command,
+            [FromServices]VehicleHandler handler
         )
         {
             return (GenericCommandResult)handler.Handle(command);
         }
 
+        [Route("")]
         [HttpPut]
-        public ActionResult Update([FromBody] Vehicle Vehicle)
+        public GenericCommandResult Update(
+           [FromBody]UpdateVehicleCommand command,
+           [FromServices]VehicleHandler handler
+       )
         {
-            repository.Update(Vehicle);
-            return Ok("Updated");
+            return (GenericCommandResult)handler.Handle(command);
         }
 
+        [Route("")]
         [HttpDelete]
-        public ActionResult Remove(Vehicle Vehicle)
+        public GenericCommandResult Remove(
+           [FromBody]UpdateVehicleCommand command,
+           [FromServices]VehicleHandler handler
+       )
         {
-            repository.Remove(Vehicle);
-            return Ok("Deleted");
-        }
+            return (GenericCommandResult)handler.Handle(command);
+        }   
     }
 }

@@ -1,16 +1,15 @@
 using System;
 using System.ComponentModel.DataAnnotations;
-using BE_Vehicle.Shared.Entities;
 
 namespace BE_Vehicle.Domain.Entities
 {
-    public class Vehicle : BaseEntity
+    public class Vehicle
     {
         public Vehicle()
         {
             
         }
-        public Vehicle(string description, int yearBuild, int yearCategory, Guid categoryId)
+        public Vehicle(string description, int yearBuild, int yearCategory, int categoryId)
         {
             Description = description;
             YearBuild = ValidCurrentYearBuild(yearBuild);
@@ -18,6 +17,9 @@ namespace BE_Vehicle.Domain.Entities
             CategoryId = categoryId;
             LastUpdateDate = DateTime.Now;
         }
+
+        [Key]
+        public int Id { get; private set; }
 
         [StringLength(20)]
         public string Description { get; private set; }
@@ -30,7 +32,7 @@ namespace BE_Vehicle.Domain.Entities
         public DateTime LastUpdateDate { get; private set; }
 
         [Required(ErrorMessage = "Category is required!")]
-        public Guid CategoryId { get; private set; }
+        public int CategoryId { get; private set; }
         public Category Category { get; private set; }
         
         public void UpdateDescription(string description)

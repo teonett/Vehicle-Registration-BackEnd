@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using BE_Vehicle.Domain.Entities;
@@ -17,24 +16,27 @@ namespace BE_Vehicle.Infra.Repositories
             _context = context;
         }
 
-        public List<Category> GetAll()
-        {
-            return _context.Categories
-            .AsNoTracking()
-            .ToList();
-        }
-
-        public Category GetById(Guid id)
-        {
-            return _context.Categories
-            .AsNoTracking()
-            .FirstOrDefault(x => x.Id == id);
-        }
-
-
         public void Add(Category entity)
         {
             _context.Categories.Add(entity);
+            _context.SaveChanges();
+        }
+
+        public IEnumerable<Category> GetAll()
+        {
+            return _context.Categories
+               .AsNoTracking();
+        }
+
+        public Category GetById(int id)
+        {
+            return _context.Categories
+                .FirstOrDefault(x => x.Id == id);
+        }
+
+        public void Remove(Category entity)
+        {
+             _context.Categories.Remove(entity);
             _context.SaveChanges();
         }
 
@@ -43,10 +45,6 @@ namespace BE_Vehicle.Infra.Repositories
             _context.Entry(entity).State = EntityState.Modified;
             _context.SaveChanges();
         }
-        public void Remove(Category entity)
-        {
-            _context.Categories.Remove(entity);
-            _context.SaveChanges();
-        }
+        
     }
 }
